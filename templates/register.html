@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Sign Up
+{% endblock title %}
+
+
+{% block script %}
+
+<script>
+  var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+
+  function validatePassword() {
+    if (password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
+
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+</script>
+{% endblock script %}
+
+{% block css %}
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    display: flexbox;
+    display: inline;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: black;
+    color: white;
+  }
+
+  form {
+    display: inline-block;
+  }
+
+  form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .form-div {
+    align-content: center;
+    text-align: center;
+    padding-top: 3em;
+  }
+
+  .form-control {
+    color: white;
+    background-color: black;
+    outline: none;
+    outline-style: none;
+  }
+
+  .form-control:focus {
+    background-color: black;
+    color: white;
+  }
+
+  form .checkbox {
+    font-weight: 400;
+  }
+
+  form .form-control {
+    margin: 16px 3px;
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  form .form-control:focus {
+    z-index: 2;
+  }
+
+  .btn-dark {
+    background-color: lavenderblush;
+    color: black;
+  }
+
+  .btn-dark:hover {
+    background: black;
+    color: white;
+  }
+
+
+  form inputcs[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+{% endblock css %}
+
+{% block body %}
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+  <strong>Message:</strong> {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="form-div">
+  <form method='post' , action="/register">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal">Enter Details to Register</h1>
+    <input type="text" id="username" name="rusername" class="form-control" placeholder="Username(alphanumeric)" required
+      autofocus>
+    <input type="text" id="name" name="rname" class="form-control" placeholder="Name" required>
+    <input type="email" id="email" name="remail" class="form-control" placeholder="Email" required>
+    <input type="password" , name="rpass1" id="password" class="form-control" placeholder="Password" required>
+    <input type="password" , name="rpass2" id="confirm_password" class="form-control" placeholder="Confirm Password"
+      required>
+     <input type="checkbox" onclick="Toggle()"> 
+      <b>Show Password</b> 
+    
+      <script> 
+      // Change the type of input to password or text 
+          function Toggle() { 
+              var temp = document.getElementById("password"); 
+              if (temp.type === "password") { 
+                  temp.type = "text"; 
+              } 
+              else { 
+                  temp.type = "password"; 
+              } 
+          } 
+      </script> 
+    
+      <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me" required> I confirm to <a href='sdskjdsakdaskdjasidjas'> Terms and Conditions</a>.
+      </label>
+    </div>
+    <button class="btn btn-lg btn-outline-light btn-block" type="submit">Sign Up</button>
+    <a class="btn btn-dark btn-lg btn-block" href="/login" role="button">Already a User</a>
+  </form>
+</div>
+{% endblock body %}

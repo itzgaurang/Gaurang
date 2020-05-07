@@ -1,0 +1,54 @@
+{% extends 'base2.html' %}
+{% block title %}Pswrd Mngr
+{% endblock title %}
+
+{% block css %}
+.card{
+background-color: #1f1e1e;
+}
+
+{% endblock css %}
+
+{% block script %}
+
+<script type="text/javascript">
+function reveal() {
+    var checkBox = document.getElementById("check");
+    var text = document.getElementById("pass");
+  
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true){
+      text.style.display = "block";
+    } else {
+      text.style.display = "none";
+    }
+  }
+
+</script>
+{% endblock script %}
+
+{% block body %}
+<div class="row">
+{% for intry in entry %}
+
+    <div class="col-sm-5 ml-2 mt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ intry.entryname }}</h5>
+          <p class="card-text">URL: {{ intry.url }}</p>
+          <p class="card-text">Username/Email: {{ intry.username }}</p>
+          <div>
+          <p class="card-text" id="pass">Password: {{ intry.password }}</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="{{intry.entryname}}" checked>
+                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+  </div>
+{% endblock body %}
+
